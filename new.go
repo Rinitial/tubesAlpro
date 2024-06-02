@@ -233,22 +233,22 @@ func findIndexSeq(x arrPengguna, n int) int {
 }
 
 // mengembalikkan index yang dicari berdasarkan nama bulan yang cocok dengan binary search
-func findIndexBin(x arrPengguna, n int) int {
+func findIndexBin(x arrPengguna, n int) bool {
 	var nama string
 	var bulan, ki, ka, te int
 	ki = 0
 	ka = n - 1
-	index := -1
+	index := false
 	fmt.Println("Masukkan data nama dan bulan pelanggan servis yang ingin dilihat:")
 	fmt.Scan(&nama, &bulan)
-	for ki <= ka && index == -1 {
+	for ki <= ka && index == false {
 		te = (ki + ka) / 2
 		if bulan > x[te].bulanService && nama == x[te].nama {
 			ka = te - 1
 		} else if bulan > x[te].bulanService && nama == x[te].nama {
 			ki = te + 1
 		} else {
-			index = te
+			index = true
 		}
 	}
 	return index
@@ -259,22 +259,11 @@ func findIndexBin(x arrPengguna, n int) int {
 func binSearch(x *arrPengguna, n *int) {
 	menurunBulan(x, n)
 	index := findIndexBin(*x, *n)
-	if index == -1 {
+	if index == false {
 		fmt.Println("Data tidak ditemukan")
 	} else {
-		fmt.Println("Data ditemukan")
-		fmt.Println("╒════════════════════════════════╕")
-		fmt.Println("│           Data History         │")
-		fmt.Println("├────────────────────────────────┤")
-		fmt.Printf("│%v. Nama : %-22s│\n", index+1, x[index].nama)
-		fmt.Printf("│   Bulan: %-22v│\n", x[index].bulanService)
-		for j := 1; j <= len(x[index].parts[j]); j++ {
-			fmt.Printf("│   Parts: %-22s│\n", x[index].parts[j])
-		}
-		fmt.Printf("│   Total: %-22v│", x[index].total)
-		fmt.Println()
+		fmt.Println("Data Ditemukan")
 	}
-	fmt.Println("╘════════════════════════════════╛")
 }
 
 // I.S. terdefinisi data array x yang berisi sebuah data pelanggan
